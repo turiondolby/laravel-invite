@@ -6,6 +6,7 @@ use App\Models\InviteCode;
 use Illuminate\Http\Request;
 use App\Rules\InviteCodeNotExpired;
 use App\Rules\InviteCodeHasQuantity;
+use App\Http\Requests\ActivateStoreRequest;
 
 class ActivateStoreController extends Controller
 {
@@ -14,14 +15,8 @@ class ActivateStoreController extends Controller
         $this->middleware(['auth']);
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(ActivateStoreRequest $request)
     {
-        $code = InviteCode::where('code', $request->code)->first();
-
-        $this->validate($request, [
-            'code' => ['bail', 'required', 'exists:invite_codes,code', new InviteCodeHasQuantity($code), new InviteCodeNotExpired($code)]
-        ]);
-
         dd('activate');
     }
 }
