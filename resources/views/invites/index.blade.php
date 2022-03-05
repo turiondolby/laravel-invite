@@ -11,7 +11,12 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     @foreach($inviteCodes as $inviteCode)
                         <div>
-                            {{ $inviteCode->code }} ({{ $inviteCode->quantity_used }}/{{ $inviteCode->quantity }}) uses
+                            @if ($inviteCode->approved())
+                                {{ $inviteCode->code }}
+                                ({{ $inviteCode->quantity_used }}/{{ $inviteCode->quantity }}) uses
+                            @else
+                                (pending) requested {{ $inviteCode->created_at->toDateString() }}
+                            @endif
                         </div>
                     @endforeach
                 </div>
