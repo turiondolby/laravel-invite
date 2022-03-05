@@ -8,17 +8,26 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    @foreach($inviteCodes as $inviteCode)
-                        <div>
-                            @if ($inviteCode->approved())
-                                {{ $inviteCode->code }}
-                                ({{ $inviteCode->quantity_used }}/{{ $inviteCode->quantity }}) uses
-                            @else
-                                (pending) requested {{ $inviteCode->created_at->toDateString() }}
-                            @endif
-                        </div>
-                    @endforeach
+                <div class="p-6 bg-white border-b border-gray-200 space-y-8">
+
+                    <form action="{{ route('invites') }}" method="post">
+                        @csrf
+                        <x-button>Request an Invite Code</x-button>
+                    </form>
+
+                    <div>
+                        @foreach($inviteCodes as $inviteCode)
+                            <div>
+                                @if ($inviteCode->approved())
+                                    {{ $inviteCode->code }}
+                                    ({{ $inviteCode->quantity_used }}/{{ $inviteCode->quantity }}) uses
+                                @else
+                                    (pending) requested {{ $inviteCode->created_at->toDateString() }}
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+
                 </div>
             </div>
         </div>
