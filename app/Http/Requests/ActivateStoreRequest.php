@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ActivateStoreRequest extends FormRequest
 {
-    protected $inviteCode;
+    public $inviteCode;
 
     public function prepareForValidation()
     {
