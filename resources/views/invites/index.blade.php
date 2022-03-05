@@ -21,7 +21,7 @@
                         @foreach($inviteCodes as $inviteCode)
                             <div>
                                 @if ($inviteCode->approved())
-                                    {{ $inviteCode->code }}
+                                    <span x-data @click="window.navigator.clipboard.writeText($el.innerText)">{{ $inviteCode->code }}</span>
                                     ({{ $inviteCode->quantity_used }}/{{ $inviteCode->quantity }}) uses
                                 @else
                                     (pending) requested {{ $inviteCode->created_at->toDateString() }}
